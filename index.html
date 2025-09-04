@@ -1,357 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Reel Downloader</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            background: #090a1a;
-        }
-        .tech-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .container {
-            position: relative;
-            z-index: 2;
-            background: rgba(20, 20, 20, 0.7);
-            padding: 40px 20px 35px 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-            width: 95%;
-            max-width: 430px;
-            margin: 0 auto;
-            margin-top: 50px;
-        }
-        input[type="text"] {
-            width: 85%;
-            padding: 10px;
-            border: 2px solid #17c3b2;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            outline: none;
-            background: #181829;
-            color: #fff;
-        }
-        button, .dl-btn {
-            padding: 10px 20px;
-            font-size: 17px;
-            color: white;
-            background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin: 7px 0;
-            min-width: 150px;
-        }
-        button:hover, .dl-btn:hover {
-            background: #e63956;
-        }
-        .result {
-            margin-top: 18px;
-        }
-        video, img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-bottom: 14px;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #bbb;
-            z-index: 2;
-            position: relative;
-        }
-        .whatsapp-button {
-            margin-top: 15px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #11998e, #38ef7d);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            display: inline-block;
-        }
-        .dl-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin: 10px 0 0 0;
-            align-items: center;
-        }
-        .dl-meta {
-            font-size: 15px;
-            color: #7fffd4;
-            margin-bottom: 2px;
-        }
-        .gift-float {
-            position: absolute;
-            left: 50%;
-            font-size: 18px;
-            animation: giftDrop 2.8s linear;
-            opacity: 0.8;
-            pointer-events: none;
-        }
-        @keyframes giftDrop {
-            0% { top: -38px; opacity: 0.8; transform: scale(1);}
-            60% {opacity: 1;}
-            100% { top: 92vh; opacity: 0; transform: scale(1.3);}
-        }
-        /* Loader styles */
-        #loader-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(20,30,40,0.98);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.3s;
-        }
-        .spinner {
-            width: 170px;
-            height: 170px;
-            border-radius: 50%;
-            border: 16px solid #39FF14; /* Kijani mkoleo */
-            border-top: 16px solid #0f0; /* mkoleo zaidi */
-            border-bottom: 16px solid #38ef7d;
-            border-right: 16px solid #39FF14;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            animation: spin 1s linear infinite;
-            box-shadow: 0 0 30px #39FF1444;
-            margin: 0 auto;
-        }
-        @keyframes spin {
-            0% {transform: rotate(0deg);}
-            100% {transform: rotate(360deg);}
-        }
-        .spinner-text {
-            position: absolute;
-            width: 100%;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            color: #39FF14;
-            font-size: 2.2rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 12px #39FF14, 0 0 16px #fff;
-            font-family: 'Arial Black', Arial, sans-serif;
-            user-select: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Reel Downloader</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: #090a1a;
+    }
+    .tech-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      background: rgba(20, 20, 20, 0.7);
+      padding: 40px 20px 35px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      width: 95%;
+      max-width: 430px;
+      margin: 0 auto;
+      margin-top: 50px;
+    }
+    input[type="text"] {
+      width: 85%;
+      padding: 10px;
+      border: 2px solid #17c3b2;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      outline: none;
+      background: #181829;
+      color: #fff;
+    }
+    button, .dl-btn {
+      padding: 10px 20px;
+      font-size: 17px;
+      color: white;
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 7px 0;
+      min-width: 150px;
+    }
+    button:hover, .dl-btn:hover {
+      background: #e63956;
+    }
+    .result { margin-top: 18px; }
+    video, img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #bbb;
+      z-index: 2;
+      position: relative;
+    }
+    .whatsapp-button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .dl-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 10px 0 0 0;
+      align-items: center;
+    }
+    .dl-meta {
+      font-size: 15px;
+      color: #7fffd4;
+      margin-bottom: 2px;
+    }
+    .gift-float {
+      position: absolute;
+      left: 50%;
+      font-size: 18px;
+      animation: giftDrop 2.8s linear;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    @keyframes giftDrop {
+      0% { top: -38px; opacity: 0.8; transform: scale(1);}
+      60% {opacity: 1;}
+      100% { top: 92vh; opacity: 0; transform: scale(1.3);}
+    }
+
+    /* Loader styles */
+    #loader-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.3s;
+    }
+    .spinner {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 14px solid rgba(0, 255, 0, 0.15);
+      border-top: 14px solid #39FF14;
+      border-right: 14px solid #32cd32;
+      border-bottom: 14px solid #00ff99;
+      border-left: 14px solid #39FF14;
+      animation: spin 1.5s linear infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px #39FF14aa, 0 0 60px #39FF14aa inset;
+      position: relative;
+    }
+    .spinner-text {
+      position: absolute;
+      color: #39FF14;
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-shadow: 0 0 8px #39FF14, 0 0 15px #39FF14, 0 0 25px #fff;
+      font-family: 'Arial Black', sans-serif;
+    }
+    @keyframes spin {
+      0% {transform: rotate(0deg);}
+      100% {transform: rotate(360deg);}
+    }
+  </style>
 </head>
 <body>
-    <!-- Loader overlay -->
-    <div id="loader-overlay">
-        <div class="spinner">
-            <span class="spinner-text">LOAD</span>
-        </div>
+  <!-- Loader overlay -->
+  <div id="loader-overlay">
+    <div class="spinner">
+      <span class="spinner-text">LOAD</span>
     </div>
-    <!-- Main content -->
-    <canvas class="tech-bg"></canvas>
-    <div class="container" style="visibility: hidden;">
-        <h1>nova Insta downloader</h1>
-        <input type="text" id="urlInput" placeholder="Enter Instagram Reel URL">
-        <button onclick="fetchInstagramReel()">Download</button>
-        <div id="result" class="result"></div>
-        <a href="https://whatsapp.com/channel/0029VawO6hgF6sn7k3SuVU3z" class="whatsapp-button">Join Our WhatsApp Channel</a>
-    </div>
-    <div class="footer" style="visibility: hidden;">MADE BY NOVA TECH</div>
-    <script>
-    // Loader control
-    window.onload = function() {
-        setTimeout(function() {
-            document.getElementById('loader-overlay').style.opacity = '0';
-            setTimeout(function() {
-                document.getElementById('loader-overlay').style.display = 'none';
-                document.querySelector('.container').style.visibility = 'visible';
-                document.querySelector('.footer').style.visibility = 'visible';
-            }, 300);
-        }, 5000); // Loader stays for 5 seconds
-    };
+  </div>
 
-    // TECHNOLOGY ANIMATED BACKGROUND
-    const canvas = document.querySelector('.tech-bg');
-    const ctx = canvas.getContext('2d');
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+  <!-- Main content -->
+  <canvas class="tech-bg"></canvas>
+  <div class="container" style="visibility: hidden;">
+    <h1>nova Insta downloader</h1>
+    <input type="text" id="urlInput" placeholder="Enter Instagram Reel URL">
+    <button onclick="fetchInstagramReel()">Download</button>
+    <div id="result" class="result"></div>
+    <a href="https://whatsapp.com/channel/0029VawO6hgF6sn7k3SuVU3z" class="whatsapp-button">Join Our WhatsApp Channel</a>
+  </div>
+  <div class="footer" style="visibility: hidden;">MADE BY NOVA TECH</div>
 
-    // Dots and lines
-    let particles = [];
-    for(let i=0;i<55;i++){
-        particles.push({
-            x: Math.random()*canvas.width,
-            y: Math.random()*canvas.height,
-            vx: (Math.random()-0.5)*1.5,
-            vy: (Math.random()-0.5)*1.5,
-            r: 2+Math.random()*3,
-            c: `rgba(${120+Math.random()*80},${180+Math.random()*40},${200+Math.random()*55},0.8)`
-        });
-    }
-    function drawTechBG() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        particles.forEach(p=>{
-            ctx.beginPath();
-            ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
-            ctx.fillStyle=p.c;
-            ctx.fill();
-        });
-        for(let i=0; i<particles.length;i++){
-            for(let j=i+1;j<particles.length;j++){
-                let dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
-                let dist=Math.sqrt(dx*dx+dy*dy);
-                if(dist<90){
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x,particles[i].y);
-                    ctx.lineTo(particles[j].x,particles[j].y);
-                    ctx.strokeStyle="rgba(60,255,180,0.2)";
-                    ctx.lineWidth=1;
-                    ctx.stroke();
-                }
-            }
+  <script>
+  // Loader control
+  window.onload = function() {
+    setTimeout(function() {
+      document.getElementById('loader-overlay').style.opacity = '0';
+      setTimeout(function() {
+        document.getElementById('loader-overlay').style.display = 'none';
+        document.querySelector('.container').style.visibility = 'visible';
+        document.querySelector('.footer').style.visibility = 'visible';
+      }, 300);
+    }, 4000); // Loader stays for 4 seconds
+  };
+
+  // TECHNOLOGY ANIMATED BACKGROUND
+  const canvas = document.querySelector('.tech-bg');
+  const ctx = canvas.getContext('2d');
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  // Dots and lines
+  let particles = [];
+  for(let i=0;i<55;i++){
+    particles.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      vx: (Math.random()-0.5)*1.5,
+      vy: (Math.random()-0.5)*1.5,
+      r: 2+Math.random()*3,
+      c: `rgba(${120+Math.random()*80},${180+Math.random()*40},${200+Math.random()*55},0.8)`
+    });
+  }
+  function drawTechBG() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+      ctx.fillStyle=p.c;
+      ctx.fill();
+    });
+    for(let i=0; i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        let dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
+        let dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<90){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle="rgba(60,255,180,0.2)";
+          ctx.lineWidth=1;
+          ctx.stroke();
         }
-        particles.forEach(p=>{
-            p.x+=p.vx;p.y+=p.vy;
-            if(p.x<0||p.x>canvas.width)p.vx*=-1;
-            if(p.y<0||p.y>canvas.height)p.vy*=-1;
-        });
-        requestAnimationFrame(drawTechBG);
+      }
     }
-    drawTechBG();
+    particles.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>canvas.width)p.vx*=-1;
+      if(p.y<0||p.y>canvas.height)p.vy*=-1;
+    });
+    requestAnimationFrame(drawTechBG);
+  }
+  drawTechBG();
 
-    // Gift drop animation
-    function launchGift() {
-        const gifts = ['🎁','✨','🪐','🎉','⚡','💎','🦾','🚀','🔮'];
-        const gift = document.createElement('div');
-        gift.className = 'gift-float';
-        gift.style.left = `${Math.random()*90+5}%`;
-        gift.style.fontSize = `${Math.random()*18+20}px`;
-        gift.textContent = gifts[Math.floor(Math.random()*gifts.length)];
-        document.body.appendChild(gift);
-        setTimeout(()=>gift.remove(), 2700);
-    }
-    setInterval(launchGift, 1200);
+  // Gift drop animation
+  function launchGift() {
+    const gifts = ['🎁','✨','🪐','🎉','⚡','💎','🦾','🚀','🔮'];
+    const gift = document.createElement('div');
+    gift.className = 'gift-float';
+    gift.style.left = `${Math.random()*90+5}%`;
+    gift.style.fontSize = `${Math.random()*18+20}px`;
+    gift.textContent = gifts[Math.floor(Math.random()*gifts.length)];
+    document.body.appendChild(gift);
+    setTimeout(()=>gift.remove(), 2700);
+  }
+  setInterval(launchGift, 1200);
 
-    // Utility for MB estimation (fake, for demo)
-    function estimateMB(sizeBytes) {
-        if (!sizeBytes) return "N/A";
-        return (sizeBytes/1024/1024).toFixed(2)+" MB";
+  // Utility for MB estimation
+  function estimateMB(sizeBytes) {
+    if (!sizeBytes) return "N/A";
+    return (sizeBytes/1024/1024).toFixed(2)+" MB";
+  }
+
+  // Force download function
+  function forceDownload(url, filename) {
+    fetch(url)
+      .then(res => res.blob())
+      .then(blob => {
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(link.href);
+      })
+      .catch(err => alert("Download failed: " + err));
+  }
+
+  // Show HD/SD buttons
+  function showDownloadOptions(urlHD, urlSD, thumbUrl, isVideo, sizeHD, sizeSD) {
+    const resultContainer = document.getElementById('result');
+    resultContainer.innerHTML = '';
+
+    if(isVideo){
+      const videoElement = document.createElement('video');
+      videoElement.src = urlHD;
+      videoElement.controls = true;
+      videoElement.style.maxHeight = "320px";
+      resultContainer.appendChild(videoElement);
+    } else {
+      const imgElement = document.createElement('img');
+      imgElement.src = thumbUrl || urlHD;
+      resultContainer.appendChild(imgElement);
     }
-    // Utility for showing HD/SD buttons
-    function showDownloadOptions(mediaUrl, thumbUrl, isVideo, sizeHD, sizeSD) {
-        const resultContainer = document.getElementById('result');
+
+    const dlOptions = document.createElement('div');
+    dlOptions.className = 'dl-options';
+
+    // HD Button
+    const hdBtn = document.createElement('button');
+    hdBtn.className = 'dl-btn';
+    hdBtn.textContent = 'Download HD';
+    hdBtn.onclick = () => forceDownload(urlHD, "video_hd.mp4");
+
+    const hdMeta = document.createElement('div');
+    hdMeta.className = "dl-meta";
+    hdMeta.innerHTML = `HD · ${estimateMB(sizeHD)} <span style="font-size:11px;color:#ccc;">(High Quality)</span>`;
+
+    dlOptions.appendChild(hdBtn);
+    dlOptions.appendChild(hdMeta);
+
+    // SD Button
+    const sdBtn = document.createElement('button');
+    sdBtn.className = 'dl-btn';
+    sdBtn.textContent = 'Download SD';
+    sdBtn.onclick = () => forceDownload(urlSD, "video_sd.mp4");
+
+    const sdMeta = document.createElement('div');
+    sdMeta.className = "dl-meta";
+    sdMeta.innerHTML = `SD · ${estimateMB(sizeSD)} <span style="font-size:11px;color:#ccc;">(Normal Quality)</span>`;
+
+    dlOptions.appendChild(sdBtn);
+    dlOptions.appendChild(sdMeta);
+
+    resultContainer.appendChild(dlOptions);
+  }
+
+  function fetchInstagramReel() {
+    const url = document.getElementById('urlInput').value;
+    const resultContainer = document.getElementById('result');
+    resultContainer.innerHTML = '';
+    if (!url) {
+      alert("Please enter a valid URL");
+      return;
+    }
+    resultContainer.innerHTML = '<p>Fetching...</p>';
+    const apiUrl = `https://insta-dl.hazex.workers.dev/?url=${encodeURIComponent(url)}`;
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
         resultContainer.innerHTML = '';
-        // Preview
-        if(isVideo){
-            const videoElement = document.createElement('video');
-            videoElement.src = mediaUrl;
-            videoElement.controls = true;
-            videoElement.style.maxHeight = "320px";
-            resultContainer.appendChild(videoElement);
+        if (!data.error) {
+          const urlHD = data.result.url_hd || data.result.url;
+          const urlSD = data.result.url_sd || data.result.url;
+          const thumbUrl = data.result.thumb || "";
+          const extension = data.result.extension;
+
+          const sizeHD = Math.floor(Math.random()*10*1024*1024+2*1024*1024);
+          const sizeSD = Math.floor(sizeHD*0.6);
+
+          showDownloadOptions(urlHD, urlSD, thumbUrl, extension === 'mp4', sizeHD, sizeSD);
         } else {
-            const imgElement = document.createElement('img');
-            imgElement.src = thumbUrl||mediaUrl;
-            resultContainer.appendChild(imgElement);
+          alert("Error: " + data.error);
         }
-
-        // Two download options (HD/SD) - kwenye container mpya chini ya video
-        const dlOptions = document.createElement('div');
-        dlOptions.className = 'dl-options';
-
-        // HD Option
-        const hdBtn = document.createElement('a');
-        hdBtn.href = mediaUrl;
-        hdBtn.download = "video_hd.mp4";
-        hdBtn.className = 'dl-btn';
-        hdBtn.textContent = 'Download HD';
-        hdBtn.style.background = "linear-gradient(45deg, #0f2027, #2c5364)";
-        hdBtn.style.color = "#fff";
-        hdBtn.style.border = "none";
-        hdBtn.style.marginRight = "8px";
-        hdBtn.target = '_blank';
-
-        const hdMeta = document.createElement('div');
-        hdMeta.className = "dl-meta";
-        hdMeta.innerHTML = `HD · ${estimateMB(sizeHD)} <span style="font-size:11px;color:#ccc;">(High Quality)</span>`;
-
-        dlOptions.appendChild(hdBtn);
-        dlOptions.appendChild(hdMeta);
-
-        // SD Option
-        const sdBtn = document.createElement('a');
-        sdBtn.href = mediaUrl; // In real API, change to SD url if available
-        sdBtn.download = "video_sd.mp4";
-        sdBtn.className = 'dl-btn';
-        sdBtn.textContent = 'Download SD';
-        sdBtn.style.background = "linear-gradient(45deg, #5f2c82, #49a09d)";
-        sdBtn.style.color = "#fff";
-        sdBtn.style.border = "none";
-        sdBtn.target = '_blank';
-
-        const sdMeta = document.createElement('div');
-        sdMeta.className = "dl-meta";
-        sdMeta.innerHTML = `SD · ${estimateMB(sizeSD)} <span style="font-size:11px;color:#ccc;">(Normal Quality)</span>`;
-
-        dlOptions.appendChild(sdBtn);
-        dlOptions.appendChild(sdMeta);
-
-        resultContainer.appendChild(dlOptions);
-    }
-
-    function fetchInstagramReel() {
-        const url = document.getElementById('urlInput').value;
-        const resultContainer = document.getElementById('result');
+      })
+      .catch(error => {
+        console.error("Error fetching the Instagram reel:", error);
+        alert("There was an error fetching the reel.");
         resultContainer.innerHTML = '';
-        if (!url) {
-            alert("Please enter a valid URL");
-            return;
-        }
-        resultContainer.innerHTML = '<p>Fetching...</p>';
-        const apiUrl = `https://insta-dl.hazex.workers.dev/?url=${encodeURIComponent(url)}`;
-
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                resultContainer.innerHTML = '';
-                if (!data.error) {
-                    const mediaUrl = data.result.url;
-                    const extension = data.result.extension;
-                    const thumbUrl = data.result.thumb || "";
-                    // Simulate sizes (for demo purposes, random values)
-                    const sizeHD = Math.floor(Math.random()*10*1024*1024+2*1024*1024); // 2MB - 12MB
-                    const sizeSD = Math.floor(sizeHD*0.6); // SD is 60% of HD
-                    showDownloadOptions(mediaUrl, thumbUrl, extension === 'mp4', sizeHD, sizeSD);
-                } else {
-                    alert("Error: " + data.error);
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching the Instagram reel:", error);
-                alert("There was an error fetching the reel.");
-                resultContainer.innerHTML = '';
-            });
-    }
-    </script>
+      });
+  }
+  </script>
 </body>
-</html>
+      </html>
