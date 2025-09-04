@@ -123,19 +123,20 @@
             transition: opacity 0.3s;
         }
         .spinner {
-            width: 180px;
-            height: 180px;
+            width: 170px;
+            height: 170px;
             border-radius: 50%;
-            border: 20px solid #38ef7d;
-            border-top: 20px solid #11998e;
-            border-bottom: 20px solid #ff416c;
-            border-right: 20px solid #4A00E0;
+            border: 16px solid #39FF14; /* Kijani mkoleo */
+            border-top: 16px solid #0f0; /* mkoleo zaidi */
+            border-bottom: 16px solid #38ef7d;
+            border-right: 16px solid #39FF14;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             animation: spin 1s linear infinite;
-            box-shadow: 0 0 40px #38ef7d33;
+            box-shadow: 0 0 30px #39FF1444;
+            margin: 0 auto;
         }
         @keyframes spin {
             0% {transform: rotate(0deg);}
@@ -146,43 +147,21 @@
             width: 100%;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            color: #fff;
+            color: #39FF14;
             font-size: 2.2rem;
             font-weight: bold;
             letter-spacing: 2px;
-            text-shadow: 0 2px 12px #38ef7d;
+            text-shadow: 0 2px 12px #39FF14, 0 0 16px #fff;
             font-family: 'Arial Black', Arial, sans-serif;
-        }
-        /* Kijana mkoleo styles */
-        .mkoleo-avatar {
-            position: absolute;
-            left: 50%; top: 50%;
-            transform: translate(-50%, -50%);
-            width: 56px; height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg,#ff416c 55%, #11998e 45%);
-            box-shadow: 0 0 15px #ff416c99,0 0 6px #11998e77;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-        }
-        .mkoleo-emoji {
-            font-size: 2.5rem;
-            filter: drop-shadow(0 0 7px #fff);
+            user-select: none;
         }
     </style>
 </head>
 <body>
     <!-- Loader overlay -->
     <div id="loader-overlay">
-        <div style="position:relative;">
-            <div class="spinner">
-                <span class="spinner-text">LOAD</span>
-            </div>
-            <div class="mkoleo-avatar">
-                <span class="mkoleo-emoji" title="Kijana Mkoleo">😎</span>
-            </div>
+        <div class="spinner">
+            <span class="spinner-text">LOAD</span>
         </div>
     </div>
     <!-- Main content -->
