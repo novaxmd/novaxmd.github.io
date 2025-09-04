@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Reel Downloader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: #090a1a;
+        }
+        .tech-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            background: rgba(20, 20, 20, 0.7);
+            padding: 40px 20px 35px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+            width: 95%;
+            max-width: 430px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+        input[type="text"] {
+            width: 85%;
+            padding: 10px;
+            border: 2px solid #17c3b2;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            outline: none;
+            background: #181829;
+            color: #fff;
+        }
+        button, .dl-btn {
+            padding: 10px 20px;
+            font-size: 17px;
+            color: white;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 7px 0;
+            min-width: 150px;
+        }
+        button:hover, .dl-btn:hover {
+            background: #e63956;
+        }
+        .result {
+            margin-top: 18px;
+        }
+        video, img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 14px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #bbb;
+            z-index: 2;
+            position: relative;
+        }
+        .whatsapp-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .dl-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 10px 0 0 0;
+            align-items: center;
+        }
+        .dl-meta {
+            font-size: 15px;
+            color: #7fffd4;
+            margin-bottom: 2px;
+        }
+        .gift-float {
+            position: absolute;
+            left: 50%;
+            font-size: 18px;
+            animation: giftDrop 2.8s linear;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+        @keyframes giftDrop {
+            0% { top: -38px; opacity: 0.8; transform: scale(1);}
+            60% {opacity: 1;}
+            100% { top: 92vh; opacity: 0; transform: scale(1.3);}
+        }
+    </style>
+</head>
+<body>
+    <canvas class="tech-bg"></canvas>
+    <div class="container">
+        <h1>nova Insta Reel Downloader</h1>
+        <input type="text" id="urlInput" placeholder="Enter Instagram Reel URL">
+        <button onclick="fetchInstagramReel()">Download</button>
+        <div id="result" class="result"></div>
+        <a href="https://whatsapp.com/channel/0029VawO6hgF6sn7k3SuVU3z" class="whatsapp-button">Join Our WhatsApp Channel</a>
+    </div>
+    <div class="footer">MADE BY NOVA TRCH</div>
+    <script>
+    // TECHNOLOGY ANIMATED BACKGROUND
+    const canvas = document.querySelector('.tech-bg');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Dots and lines
+    let particles = [];
+    for(let i=0;i<55;i++){
+        particles.push({
+            x: Math.random()*canvas.width,
+            y: Math.random()*canvas.height,
+            vx: (Math.random()-0.5)*1.5,
+            vy: (Math.random()-0.5)*1.5,
+            r: 2+Math.random()*3,
+            c: `rgba(${120+Math.random()*80},${180+Math.random()*40},${200+Math.random()*55},0.8)`
+        });
+    }
+    function drawTechBG() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        particles.forEach(p=>{
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+            ctx.fillStyle=p.c;
+            ctx.fill();
+        });
+        for(let i=0; i<particles.length;i++){
+            for(let j=i+1;j<particles.length;j++){
+                let dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
+                let dist=Math.sqrt(dx*dx+dy*dy);
+                if(dist<90){
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x,particles[i].y);
+                    ctx.lineTo(particles[j].x,particles[j].y);
+                    ctx.strokeStyle="rgba(60,255,180,0.2)";
+                    ctx.lineWidth=1;
+                    ctx.stroke();
+                }
+            }
+        }
+        particles.forEach(p=>{
+            p.x+=p.vx;p.y+=p.vy;
+            if(p.x<0||p.x>canvas.width)p.vx*=-1;
+            if(p.y<0||p.y>canvas.height)p.vy*=-1;
+        });
+        requestAnimationFrame(drawTechBG);
+    }
+    drawTechBG();
+
+    // Gift drop animation
+    function launchGift() {
+        const gifts = ['🎁','✨','🪐','🎉','⚡','💎','🦾','🚀','🔮'];
+        const gift = document.createElement('div');
+        gift.className = 'gift-float';
+        gift.style.left = `${Math.random()*90+5}%`;
+        gift.style.fontSize = `${Math.random()*18+20}px`;
+        gift.textContent = gifts[Math.floor(Math.random()*gifts.length)];
+        document.body.appendChild(gift);
+        setTimeout(()=>gift.remove(), 2700);
+    }
+    setInterval(launchGift, 1200);
+
+    // Utility for MB estimation (fake, for demo)
+    function estimateMB(sizeBytes) {
+        if (!sizeBytes) return "N/A";
+        return (sizeBytes/1024/1024).toFixed(2)+" MB";
+    }
+    // Utility for showing HD/SD buttons
+    function showDownloadOptions(mediaUrl, thumbUrl, isVideo, sizeHD, sizeSD) {
+        const resultContainer = document.getElementById('result');
+        resultContainer.innerHTML = '';
+        // Preview
+        if(isVideo){
+            const videoElement = document.createElement('video');
+            videoElement.src = mediaUrl;
+            videoElement.controls = true;
+            videoElement.style.maxHeight = "320px";
+            resultContainer.appendChild(videoElement);
+        } else {
+            const imgElement = document.createElement('img');
+            imgElement.src = thumbUrl||mediaUrl;
+            resultContainer.appendChild(imgElement);
+        }
+
+        // Two download options (HD/SD) - kwenye container mpya chini ya video
+        const dlOptions = document.createElement('div');
+        dlOptions.className = 'dl-options';
+
+        // HD Option
+        const hdBtn = document.createElement('a');
+        hdBtn.href = mediaUrl;
+        hdBtn.download = "video_hd.mp4";
+        hdBtn.className = 'dl-btn';
+        hdBtn.textContent = 'Download HD';
+        hdBtn.style.background = "linear-gradient(45deg, #0f2027, #2c5364)";
+        hdBtn.style.color = "#fff";
+        hdBtn.style.border = "none";
+        hdBtn.style.marginRight = "8px";
+        hdBtn.target = '_blank';
+
+        const hdMeta = document.createElement('div');
+        hdMeta.className = "dl-meta";
+        hdMeta.innerHTML = `HD · ${estimateMB(sizeHD)} <span style="font-size:11px;color:#ccc;">(High Quality)</span>`;
+
+        dlOptions.appendChild(hdBtn);
+        dlOptions.appendChild(hdMeta);
+
+        // SD Option
+        const sdBtn = document.createElement('a');
+        sdBtn.href = mediaUrl; // In real API, change to SD url if available
+        sdBtn.download = "video_sd.mp4";
+        sdBtn.className = 'dl-btn';
+        sdBtn.textContent = 'Download SD';
+        sdBtn.style.background = "linear-gradient(45deg, #5f2c82, #49a09d)";
+        sdBtn.style.color = "#fff";
+        sdBtn.style.border = "none";
+        sdBtn.target = '_blank';
+
+        const sdMeta = document.createElement('div');
+        sdMeta.className = "dl-meta";
+        sdMeta.innerHTML = `SD · ${estimateMB(sizeSD)} <span style="font-size:11px;color:#ccc;">(Normal Quality)</span>`;
+
+        dlOptions.appendChild(sdBtn);
+        dlOptions.appendChild(sdMeta);
+
+        resultContainer.appendChild(dlOptions);
+    }
+
+    function fetchInstagramReel() {
+        const url = document.getElementById('urlInput').value;
+        const resultContainer = document.getElementById('result');
+        resultContainer.innerHTML = '';
+        if (!url) {
+            alert("Please enter a valid URL");
+            return;
+        }
+        resultContainer.innerHTML = '<p>Fetching...</p>';
+        const apiUrl = `https://insta-dl.hazex.workers.dev/?url=${encodeURIComponent(url)}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                resultContainer.innerHTML = '';
+                if (!data.error) {
+                    const mediaUrl = data.result.url;
+                    const extension = data.result.extension;
+                    const thumbUrl = data.result.thumb || "";
+                    // Simulate sizes (for demo purposes, random values)
+                    const sizeHD = Math.floor(Math.random()*10*1024*1024+2*1024*1024); // 2MB - 12MB
+                    const sizeSD = Math.floor(sizeHD*0.6); // SD is 60% of HD
+                    showDownloadOptions(mediaUrl, thumbUrl, extension === 'mp4', sizeHD, sizeSD);
+                } else {
+                    alert("Error: " + data.error);
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching the Instagram reel:", error);
+                alert("There was an error fetching the reel.");
+                resultContainer.innerHTML = '';
+            });
+    }
+    </script>
+</body>
+  </html>
